@@ -29,11 +29,21 @@ namespace LaMiaPizzeria.Controllers
             }
             if(pizzaTrovata != null)
             {
-                return View("Details", pizzaTrovata)
+                return View("Details", pizzaTrovata);
             } else
             {
                 return NotFound("La pizza con l'id " + id + "non è stato trovato");
             }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Pizze nuovaPizza)
+        {
+            if(!ModelState.IsValid){
+                return View("ErrorePizza");
+            }
+            PizzeData.GetPizze().Add(nuovaPizza);
         }
     }
 
